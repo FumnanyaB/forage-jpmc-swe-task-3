@@ -1,12 +1,10 @@
 export interface ServerRespond {
   // Define the structure of the server response here
-  top_ask: {
-    price: number;
-  };
-  top_bid: {
-    price: number;
-  };
-  timestamp: Date;
+
+  stock: string;
+  timestamp: string;
+  top_bid: { price: number, size: number };
+  top_ask: { price: number, size: number };
 }
 
 export class DataStreamer {
