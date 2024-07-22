@@ -21,12 +21,11 @@ export class DataManipulator {
         return {
             price_abc: priceABC,
             price_def: priceDEF,
-            ratio,
-            timestamp: serverRespond[0].timestamp > serverRespond[1].timestamp ?
-                serverRespond[0].timestamp : serverRespond[1].timestamp,
+            ratio: ratio,
+            timestamp: serverRespond[0].timestamp, // Ensure this property exists in ServerRespond
             upper_bound: upperBound,
             lower_bound: lowerBound,
-            trigger_alert: (ratio > upperBound || ratio < lowerBound) ? ratio : undefined,
+            trigger_alert: ratio > upperBound || ratio < lowerBound ? 1 : 0,
         };
     }
 }
