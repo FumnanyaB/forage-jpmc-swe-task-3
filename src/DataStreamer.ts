@@ -1,31 +1,19 @@
-export interface Order {
-  price: number,
-  size: number,
-}
 export interface ServerRespond {
-  stock: string,
-  top_bid: Order,
-  top_ask: Order,
-  timestamp: Date,
+  // Define the structure of the server response here
 }
 
-class DataStreamer {
-  static API_URL: string = 'http://localhost:8080/query?id=1';
-
+export class DataStreamer {
   static getData(callback: (data: ServerRespond[]) => void): void {
     const request = new XMLHttpRequest();
-    request.open('GET', DataStreamer.API_URL, false);
-
+    request.open('GET', 'http://localhost:8080/query', true);
     request.onload = () => {
-      if (request.status === 200) {
+      if (request.status >= 200 && request.status < 400) {
         callback(JSON.parse(request.responseText));
-      } else {
-        alert ('Request failed');
       }
-    }
-
+    };
+    request.onerror = () => {
+      console.error('Network error');
+    };
     request.send();
   }
 }
-
-export default DataStreamer;
